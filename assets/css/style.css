@@ -11,62 +11,62 @@
 } 
 
 .container {
-    width: min(100% - 30px, 1080px);
-    margin-inline: auto;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
+	width: min(100% - 30px, 1080px);
+	margin-inline: auto;
+	padding: 20px;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: var(--app-dark-background-color);
-    color: var(--app-white-background-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: var(--app-dark-background-color);
+  color: var(--app-white-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .info {
-    background-color: var(--app-simplegray-background-color);
-    border: 1px solid rgb(42, 45, 56);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 350px;
-    margin-top: 25px;
-    overflow: hidden;
+  background-color: var(--app-simplegray-background-color);
+  border: 1px solid rgb(42, 45, 56);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 350px;
+  margin-top: 25px;
+  overflow: hidden;
 }
 
 .info h2 {
-    text-align: center;
-    font-size: 18px;
-    color: var(--app-lightgray-background-color);
-    width: 350px;
-    height: 50px;
-    padding: 10px 0; 
+  text-align: center;
+  font-size: 18px;
+  color: var(--app-lightgray-background-color);
+  width: 350px;
+  height: 50px;
+  padding: 10px 0; 
 }
 
 .info p {
-    font-size: 16px;
-    padding: 5px;
-    color: var(--app-white-background-color);
-    background-color: var(--app-dark-background-color);
+  font-size: 16px;
+  padding: 5px;
+  color: var(--app-white-background-color);
+  background-color: var(--app-dark-background-color);
 }
 
 .btn {
-    background-color: var(--app-green-background-color);
-    color: var(--app-white-background-color);
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    width: 350px;
-    height: 50px;
-    margin-top: 30px;
+  background-color: var(--app-green-background-color);
+  color: var(--app-white-background-color);
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: 350px;
+  height: 50px;
+  margin-top: 30px;
 }
 
 .btn.offline {
-    background-color: var(--app-red-background-color);
+  background-color: var(--app-red-background-color);
 }
