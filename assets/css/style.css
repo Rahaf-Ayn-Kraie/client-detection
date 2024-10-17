@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+:root {
+    --app-dark-background-color: #1a1d28;
+    --app-white-background-color: #fff;
+    --app-simplegray-background-color: #2a2d38;
+    --app-lightgray-background-color:  #ccc;
+    --app-green-background-color:#28a745;
+    --app-light-background-color: #9d9798;
+} 
+
+.container {
+    width: min(100% - 30px, 1080px);
+    margin-inline: auto;
+    display: grid;
+    gap: 20px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--app-dark-background-color);
+    color: var(--app-white-background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.info {
+    background-color: var(--app-simplegray-background-color);
+    padding: 17px 2px 2px 2px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    margin-top: 15px;
+}
+
+.info h2 {
+    text-align: center;
+    font-size: 18px;
+    color: var(--app-lightgray-background-color);
+    margin-bottom: 10px;
+}
+
+.info p {
+    font-size: 16px;
+    padding: 5px;
+    color: var(--app-white-background-color);
+    background-color: var(--app-dark-background-color);
+}
+
+.btn {
+    background-color: var(--app-green-background-color);
+    color: var(--app-white-background-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 350px;
+    height: 50px;
+    margin-top: 30px;
+}
+
+.btn.offline {
+    background-color: var(--app-light-background-color);
+}
