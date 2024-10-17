@@ -7,6 +7,7 @@
     --app-lightgray-background-color:  #ccc;
     --app-green-background-color:#28a745;
     --app-light-background-color: #9d9798;
+    --app-red-background-color: #dc3545;
 } 
 
 .container {
@@ -67,5 +68,5 @@ body {
 }
 
 .btn.offline {
-    background-color: var(--app-light-background-color);
+    background-color: var(--app-red-background-color);
 }
