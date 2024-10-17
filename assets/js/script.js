@@ -8,105 +8,101 @@ function listen(event, selector, callback) {
   return selector.addEventListener(event, callback);
 }
 
-const width = select('.width');
-const height = select('.height');
+const pageWidth = select('.width');
+const pageHeight = select('.height');
+const pageOrientation = select('.orientation');
+const batteryCheck = select('.battery');
+const statusCheck = select('.status');
 const laptopName = select('.laptop-name');
-const language = select('.language');
 const browser = select('.browser');
-const batteryLevel = select('.battery');
-const batteryStatus = select('.status');
-const orientation = select('.orientation');
+const language = select('.language');
 const button = select('.btn');
 
-function readWindow() {
-  width.innerText = `${window.innerWidth}px`;
-  height.innerText = `${window.innerHeight}px`;
-}
-
-function readWindow() {
-  width.innerText = `${window.innerWidth}px`;
-  height.innerText = `${window.innerHeight}px`;
-}
-
-function detectOS() {
-  let os = "Unknown OS";
+function getLaptopName() {
   const userAgent = window.navigator.userAgent;
 
-  if (userAgent.indexOf("Win") !== -1) os = "Windows";
-  else if (userAgent.indexOf("Mac") !== -1) os = "MacOS";
-  else if (userAgent.indexOf("X11") !== -1 || userAgent.indexOf("Linux") !== -1) os = "Linux";
-
-  laptopName.innerText = os;
+  switch(true) {
+    case userAgent.indexOf('Win') !== -1:
+      return 'Windows';
+    case userAgent.indexOf('Mac') !== -1:
+      return 'Mac/iOS';
+    case userAgent.indexOf('X11') !== -1:
+      return 'UNIX';
+    case userAgent.indexOf('Linux') !== -1:
+      return 'Linux';  
+    default:
+      return 'Unknown OS';    
+  }
 }
 
-function detectLanguage() {
-  language.innerText = navigator.language || navigator.userLanguage;
-}
-
-function detectBrowser() {
+function getBrowser() {
   const userAgent = navigator.userAgent;
-  let browserName = "Unknown Browser";
 
-  if (userAgent.indexOf("Edg") !== -1) browserName = "Microsoft Edge";
-  else if (userAgent.indexOf("Chrome") !== -1) browserName = "Chrome";
-  else if (userAgent.indexOf("Safari") !== -1) browserName = "Safari";
-  else if (userAgent.indexOf("Firefox") !== -1) browserName = "Firefox";
-  else if (userAgent.indexOf("MSIE") !== -1 || userAgent.indexOf("Trident") !== -1) browserName = "Internet Explorer";
-  
-  browser.innerText = browserName;
-}
-
-function detectBattery() {
-  navigator.getBattery().then(function(battery) {
-    batteryLevel.innerText = `${Math.round(battery.level * 100)}%`;
-    batteryStatus.innerText = battery.charging ? "Charging" : "Not Charging";
-
-    battery.addEventListener('levelchange', function() {
-      batteryLevel.innerText = `${Math.round(battery.level * 100)}%`;
-    });
-
-    battery.addEventListener('chargingchange', function() {
-      batteryStatus.innerText = battery.charging ? "Charging" : "Not Charging";
-    });
-  });
-}
-
-function detectNetwork() {
-  function updateNetworkStatus() {
-    if (navigator.onLine) {
-      button.innerText = "ONLINE";
-      button.classList.remove('offline');
-    } else {
-      button.innerText = "OFFLINE";
-      button.classList.add('offline');
-    }
+  switch(true) {
+    case userAgent.indexOf('Edg') !== -1:
+      return 'Microsoft Edge';
+    case userAgent.indexOf('Firefox') !== -1:
+      return 'Firefox';
+    case userAgent.indexOf('Chrome') !== -1:
+      return 'Chrome';
+      case userAgent.indexOf('Safari') !== -1:
+        return 'Safari';
+    default:
+      return 'Unknown Browser';   
   }
-
-  listen('online', window, updateNetworkStatus);
-  listen('offline', window, updateNetworkStatus);
-
-  updateNetworkStatus();
 }
 
-function detectOrientation() {
-  if (window.innerHeight > window.innerWidth) {
-    orientation.innerText = 'Portrait';
+function getLanguage() {
+  return navigator.language;
+}
+
+function updateWindowSize() {
+  pageWidth.innerText = window.innerWidth;
+  pageHeight.innerText = window.innerHeight;
+  pageOrientation.innerText = window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+}
+
+// I use asyn and await keywords for more readability here 
+//async declares  asynchronous operation which can handal using await 
+//means wait for the result and then execute. This is helpful in error handling as well. 
+async function checkBatteryStatus() { 
+  if (navigator.getBattery) {
+    const battery = await navigator.getBattery();
+    batteryCheck.innerText = Math.round(battery.level * 100) + '%';
+    statusCheck.innerText = battery.charging ? 'charging' : 'not charging';
+    
+    listen('levelchange', battery, () => {
+      batteryCheck.innerText = Math.round(battery.level * 100) + '%';
+    });
+    listen('chargingchange', battery, () => {
+      statusCheck.innerText = battery.charging ? 'charging' : 'not charging';
+    });
+
   } else {
-    orientation.innerText = 'Landscape';
+    batteryCheck.innerText = 'not available';
+    statusCheck.innerText = 'not available';
   }
 }
 
-listen('load', window, () => {
-  readWindow();
-  detectOS();
-  detectLanguage();
-  detectBrowser();
-  detectBattery();
-  detectNetwork();
-  detectOrientation();
-});
+function checkBtn() {
+  if (navigator.onLine) {
+      button.innerText = 'ONLINE';
+      button.style.backgroundColor = '#28a745';
+  } else {
+      button.innerText = 'OFFLINE';
+      button.classList.add('offline');
+      button.style.backgroundColor = '#dc3545';
+  }
+}
+
+  browser.innerText = getBrowser();
+  laptopName.innerText = getLaptopName();
+  language.innerText = getLanguage();
+  updateWindowSize();
+  checkBatteryStatus();
+  checkBtn();
+
 
 listen('resize', window, () => {
-  readWindow();
-  detectOrientation();
+  updateWindowSize();
 });
