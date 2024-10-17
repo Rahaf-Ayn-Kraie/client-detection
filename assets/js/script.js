@@ -47,9 +47,10 @@ function detectBrowser() {
   const userAgent = navigator.userAgent;
   let browserName = "Unknown Browser";
 
-  if (userAgent.indexOf("Firefox") !== -1) browserName = "Firefox";
+  if (userAgent.indexOf("Edg") !== -1) browserName = "Microsoft Edge";
   else if (userAgent.indexOf("Chrome") !== -1) browserName = "Chrome";
   else if (userAgent.indexOf("Safari") !== -1) browserName = "Safari";
+  else if (userAgent.indexOf("Firefox") !== -1) browserName = "Firefox";
   else if (userAgent.indexOf("MSIE") !== -1 || userAgent.indexOf("Trident") !== -1) browserName = "Internet Explorer";
   
   browser.innerText = browserName;
