@@ -85,16 +85,21 @@ async function checkBatteryStatus() {
   }
 }
 
-function checkBtn() {
+function updateNetworkStatus() {
   if (navigator.onLine) {
       button.innerText = 'ONLINE';
       button.style.backgroundColor = '#28a745';
+      button.classList.remove('offline');
   } else {
       button.innerText = 'OFFLINE';
       button.classList.add('offline');
       button.style.backgroundColor = '#dc3545';
+      button.classList.add('offline');
   }
 }
+
+listen('online', window, updateNetworkStatus);
+listen('offline', window, updateNetworkStatus);
 
 listen('load', window, () => {
   browser.innerText = getBrowser();
@@ -102,7 +107,7 @@ listen('load', window, () => {
   language.innerText = getLanguage();
   updateWindowSize();
   checkBatteryStatus();
-  checkBtn();
+  updateNetworkStatus();
 });
 
 listen('resize', window, () => {
